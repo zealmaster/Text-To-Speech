@@ -1,0 +1,44 @@
+.container{
+    margin: auto;
+   padding: auto;
+   width: 600px;
+   background-color: #F4F6FC;
+}
+.headtext{
+    font-size:xx-large;
+    width: 505px;
+    color: white;
+    background-color: #164672;
+    height: 50px;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.mainForm {
+    /* display: flex; */
+    background-color:  #164672;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: block;
+    padding: 10px;
+    margin: auto;
+    color: gold; 
+    display: inline-block;
+}
+
+.formFields {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: inherit;
+     height: 500px;
+    width: 500px;
+    text-align:justify;
+}
+
+.button {
+    color: white; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #787878; 
+    height: 30px; 
+    width: 100px; 
+    border: none;
+}
