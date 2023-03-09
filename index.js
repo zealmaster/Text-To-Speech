@@ -1,29 +1,22 @@
         const speech = new SpeechSynthesisUtterance()
-        function play (){
+        function getText (){
             const message = document.getElementById("message").value;
             speech.lang = "en"
             speech.text = message
-            speech.pitch = 5000
+        }
+        function play (){
+            getText()
             window.speechSynthesis.speak(speech)
         }
         function resumePlay (){
-            const message = document.getElementById("message").value;
-            speech.lang = "en"
-            speech.text = message
-            speech.pitch = 500
+            getText()
             window.speechSynthesis.resume(speech)
         }
         function stopPlay (){
-            const message = document.getElementById("message").value;
-            speech.lang = "en"
-            speech.text = message
-            speech.pitch = 500
+            getText()
             window.speechSynthesis.cancel(speech)
         }
         function pausePlay (){
-            const message = document.getElementById("message").value;
-            speech.lang = "en"
-            speech.text = message
-            speech.pitch = 500
+            getText()
             window.speechSynthesis.pause(speech)
         }
