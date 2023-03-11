@@ -24,8 +24,32 @@
     margin: auto;
     color: gold; 
     display: inline-block;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
-
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .custom-file-input::before {
+    content: 'Add file to read content';
+    display: inline-block;
+    background: linear-gradient(top, #048CAC, #048CAC);
+    color: #1855CC;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  .custom-file-input:hover::before {
+    border-color: black;
+  }
+  .custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+  }
 .formFields {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     margin: inherit;
@@ -33,13 +57,16 @@
     width: 500px;
     text-align:justify;
     overflow:hidden;
+    cursor: pointer;
 }
 
 .button {
-    color: white; 
+    color: #1855CC; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    background-color: #787878; 
+    background-color: #F3F4FC; 
     height: 30px; 
     width: 100px; 
     border: none;
+    border-radius: 5px;
+    display: inline-block;
 }
