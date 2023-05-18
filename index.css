@@ -119,16 +119,8 @@ height: 100px;
     display: inline-block;
 }
 
-@media (max-width: 499px) {
-  .container {
-    width: 100%;
-  }
-  .headtext {
-    width: 100%;
-  }
-}
 /* Mobile device screen */
-@media (max-width: 400px) {
+@media (max-width: 499px) {
   .container {
     width: 100%;
     margin-bottom: 10px;
