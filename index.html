@@ -1,34 +1,64 @@
 <!DOCTYPE html>
-<HTML><head>
+<HTML>
+
+<head>
     <title>Text to speech</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
     <div class="container">
         <div class="headtext">Text To Speech</div>
-        <input type="file" id="upload" accept=".txt" class="custom-file-input">
+        <div class="beforeForm">
+            Type in the textarea or upload a file to listen.<br>
+            Files supported formats: .txt, .pdf, .docx, .doc</div>
+        <input type="file" id="upload" accept=".txt, .pdf, .docx, .doc" class="custom-file-input">
         <div>
-        <form class="mainForm" enctype="multipart/form-data">
-        <textarea id="message" type="text" class="formFields" rows=50></textarea><br>
-        <button onclick="play()" type="button" class="button">Play</button>
-        <button onclick="pausePlay()" type="button" class="button">Pause</button>
-        <button onclick="resumePlay()" type="button" class="button">Resume</button>
-        <button onclick="stopPlay()" type="button" class="button">Stop</button>
-    </form>
-     <pre id="outputBox"></pre>
-     
-</div>
-<div class="beforeFooter"></div>
-    </div>
-    <div class="footer"> 
-    <div class="icon"><a href="https://www.linkedin.com/in/kingsley-ijuo-onah" target="linkedin.com/in/kingsley-ijuo-onah"><img src="linkedin.png" class="image"></a></div>
-    <div class="icon"><a href="https://github.com/zealmaster" target="https://github.com/zealmaster"><img src="github-142.svg" class="image"></a></div>
-    <div class="icon"><a href="mailto:onahkingsleyijuo@gmail.com" target="mailto:onahkingsleyijuo@gmail.com"><img src="gmail-icon-logo-svgrepo-com.svg" class="image"></a></div>
-    <p>&copy; 2023 Kingsley. All rights reserved.</p> 
-</div> 
-    <script src ="./index.js"></script>
-</body>
-</HTML>
+            <form class="mainForm" enctype="multipart/form-data">
+                <div class="control-buttons">
+                    <button onclick="play()" type="button" class="button" title="Play">
+                        <i class="fa-solid fa-play"></i>
+                    </button>
 
-    
+                    <button onclick="pausePlay()" type="button" class="button" title="Pause">
+                        <i class="fa-solid fa-pause"></i>
+                    </button>
+
+                    <button onclick="resumePlay()" type="button" class="button" title="Resume">
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+
+                    <button onclick="stopPlay()" type="button" class="button" title="Stop">
+                        <i class="fa-solid fa-stop"></i>
+                    </button>
+                </div>
+
+                <!-- Active Button -->
+                <div id="active-button"></div>
+                
+                <div>
+                    <textarea id="message" type="text" class="formFields" rows=50></textarea><br>
+                </div>
+            </form>
+            <pre id="outputBox"></pre>
+
+        </div>
+        <div class="beforeFooter"></div>
+    </div>
+    <div class="footer">
+        <div class="icon"><a href="https://www.linkedin.com/in/kingsley-ijuo-onah"
+                target="linkedin.com/in/kingsley-ijuo-onah"><img src="linkedin.png" class="image"></a></div>
+        <div class="icon"><a href="https://github.com/zealmaster" target="https://github.com/zealmaster"><img
+                    src="github-142.svg" class="image"></a></div>
+        <div class="icon"><a href="mailto:onahkingsleyijuo@gmail.com" target="mailto:onahkingsleyijuo@gmail.com"><img
+                    src="gmail-icon-logo-svgrepo-com.svg" class="image"></a></div>
+        <p>&copy; 2023 Kingsley. All rights reserved.</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</HTML>
