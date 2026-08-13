@@ -16,7 +16,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin: auto 10px;
-  width: 100%;
+  /* width: 100%; */
   background-color: #F4F6FC;
 }
 
@@ -125,6 +125,10 @@ body {
   color: #888;
 }
 
+.browse-file-mobile {
+  display: none;
+}
+
 .formFields {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   height: 500px;
@@ -167,20 +171,19 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: auto;
-  width: 100%;
-  height: 50px;
+  height: 30px;
   background-color: white;
   color: rgb(24, 5, 5);
   position: fixed;
-  bottom: 0;
-  left: 0;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
   border-top-width: 3px;
   border-bottom-width: 0px;
   border-radius: 10px;
-  margin: 10px;
+  margin: 0;
   opacity: 1;
-  padding: 10px;
+  padding: 3px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   clear: both;
 }
@@ -262,5 +265,40 @@ body {
 
   .footer {
     font-size: 0.65rem;
+  }
+
+  .file-drop-zone {
+    width: auto;
+    min-height: auto;
+    margin: 20px;
+  }
+
+  .file-drop-content {
+    width: 100%;
+    min-height: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+    margin: 0;
+  }
+
+  .upload-icon {
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+
+  .upload-title,
+  .upload-subtext
+   {
+    display: none;
+  }
+
+  .browse-file-mobile {
+    display: inline;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1855cc;
   }
 }
