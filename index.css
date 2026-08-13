@@ -213,6 +213,17 @@ body {
   display: inline-block;
 }
 
+#voiceSelect {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid #1855CC;
+}
+
 /* Mobile device screen */
 @media screen and (max-width: 450px) {
 
