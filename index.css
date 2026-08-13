@@ -31,6 +31,10 @@ html, body {
   font-family:Arial, Helvetica, sans-serif;
   opacity: 0.80;
 }
+.subtext {
+  font-size: 8pt;
+  font-style: italic;
+}
 .mainForm {
     display: flex;
     flex-direction: column;

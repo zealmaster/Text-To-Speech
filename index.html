@@ -2,7 +2,7 @@
 <HTML>
 
 <head>
-    <title>Text to speech</title>
+    <title>Lectoria</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +10,11 @@
 
 <body>
     <div class="container">
-        <div class="headtext">Text To Speech</div>
+        <div class="headtext">Lectoria</div>
+        <div class="subtext">Your document, your voice</div>
         <div class="beforeForm">
             Type in the textarea or upload a file to listen.<br>
-            Files supported formats: .txt, .pdf, .docx, .doc</div>
+            Supported file formats: .txt, .pdf, .docx, .doc</div>
         <input type="file" id="upload" accept=".txt, .pdf, .docx, .doc" class="custom-file-input">
         <div>
             <form class="mainForm" enctype="multipart/form-data">
@@ -39,7 +40,7 @@
                 <div id="active-button"></div>
                 
                 <div>
-                    <textarea id="message" type="text" class="formFields" rows=50></textarea><br>
+                    <textarea id="message" type="text" class="formFields" rows=50 placeholder="Type text here..."></textarea><br>
                 </div>
             </form>
             <pre id="outputBox"></pre>
