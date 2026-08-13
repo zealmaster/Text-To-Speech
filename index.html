@@ -12,10 +12,37 @@
     <div class="container">
         <div class="headtext">Lectoria</div>
         <div class="subtext">Your document, your voice</div>
-        <div class="beforeForm">
-            Type in the textarea or upload a file to listen.<br>
-            Supported file formats: .txt, .pdf, .docx, .doc</div>
-        <input type="file" id="upload" accept=".txt, .pdf, .docx, .doc" class="custom-file-input">
+        <div
+  class="file-drop-zone"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  [class.drag-over]="isDragOver"
+>
+  <input
+    type="file"
+    id="upload"
+    accept=".txt,.pdf,.docx,.doc"
+    class="file-input"
+    (change)="onFileSelected($event)"
+  />
+
+  <label for="upload" class="file-drop-content">
+    <span class="upload-icon">📄</span>
+
+    <span class="upload-title">
+      Drag & drop your file here
+    </span>
+
+    <span class="upload-subtext">
+      or <strong>click to browse</strong>
+    </span>
+
+    <span class="file-types">
+      Supported formats: PDF, DOC, DOCX, TXT
+    </span>
+  </label>
+</div>
         <div>
             <form class="mainForm" enctype="multipart/form-data">
                 <div class="control-buttons">
@@ -55,7 +82,7 @@
                     src="github-142.svg" class="image"></a></div>
         <div class="icon"><a href="mailto:onahkingsleyijuo@gmail.com" target="mailto:onahkingsleyijuo@gmail.com"><img
                     src="gmail-icon-logo-svgrepo-com.svg" class="image"></a></div>
-        <p>&copy; 2023 Kingsley. All rights reserved.</p>
+        <p>&copy; 2023 - <script>document.write(new Date().getFullYear());</script> Lectoria. All rights reserved.</p>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>

@@ -4,6 +4,74 @@ let activeButton = document.getElementById("active-button");
 
 const speech = new SpeechSynthesisUtterance();
 
+let isDragOver = false;
+
+function onDragOver(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    isDragOver = true;
+
+    // Optional: add visual styling
+    document.querySelector('.file-drop-zone').classList.add('drag-over');
+}
+
+function onDragLeave(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    isDragOver = false;
+
+    document.querySelector('.file-drop-zone').classList.remove('drag-over');
+}
+
+function onDrop(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    isDragOver = false;
+
+    const dropZone = document.querySelector('.file-drop-zone');
+    dropZone.classList.remove('drag-over');
+
+    const files = event.dataTransfer.files;
+
+    if (files && files.length > 0) {
+        processFile(files[0]);
+    }
+}
+
+function onFileSelected(event) {
+    const input = event.target;
+
+    if (input.files && input.files.length > 0) {
+        processFile(input.files[0]);
+    }
+}
+
+function processFile(file) {
+    const allowedTypes = [
+        'txt',
+        'pdf',
+        'doc',
+        'docx'
+    ];
+
+    const extension = file.name
+        .split('.')
+        .pop()
+        .toLowerCase();
+
+    if (!extension || !allowedTypes.includes(extension)) {
+        alert('Please select a TXT, PDF, DOC, or DOCX file.');
+        return;
+    }
+
+    console.log('Selected file:', file);
+
+    // Your file processing/upload logic here
+}
+
 fileInput.addEventListener("change", async (event) => {
     const file = event.target.files[0];
 
@@ -162,7 +230,7 @@ function play() {
 // =========================================================
 
 function resumePlay() {
-      if (!getText()) {
+    if (!getText()) {
         alert("There is no text to read.");
         return;
     }
@@ -176,7 +244,7 @@ function resumePlay() {
 // =========================================================
 
 function pausePlay() {
-      if (!getText()) {
+    if (!getText()) {
         alert("There is no text to read.");
         return;
     }
@@ -191,7 +259,7 @@ function pausePlay() {
 // =========================================================
 
 function stopPlay() {
-      if (!getText()) {
+    if (!getText()) {
         alert("There is no text to read.");
         return;
     }
@@ -203,10 +271,10 @@ function stopPlay() {
 document.addEventListener('contextmenu', e => e.preventDefault());
 
 document.addEventListener('keydown', e => {
-  if (
-    e.key === 'F12' ||
-    (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))
-  ) {
-    e.preventDefault();
-  }
+    if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))
+    ) {
+        e.preventDefault();
+    }
 });
