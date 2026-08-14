@@ -2,6 +2,7 @@ const fileInput = document.getElementById("upload");
 const message = document.getElementById("message");
 const activeButton = document.getElementById("active-button");
 const voiceSelect = document.getElementById("voiceSelect");
+const speed = document.getElementById("speed");
 
 const speech = new SpeechSynthesisUtterance();
 
@@ -71,6 +72,10 @@ function onFileSelected(event) {
 }
 
 
+speed.addEventListener("change", () => {
+    speech.rate = speed.value;
+});
+
 // =========================================================
 // PROCESS FILE
 // =========================================================
@@ -116,6 +121,8 @@ fileInput.addEventListener(
         const fileName =
             file.name.toLowerCase();
 
+        activeButton.innerText = "Loading text";
+
         try {
 
             // =====================================================
@@ -131,12 +138,14 @@ fileInput.addEventListener(
 
                     message.value =
                         reader.result;
+                    activeButton.innerText = "Ready!";
                 };
 
                 reader.onerror = () => {
 
                     message.value =
                         "Error reading TXT file.";
+                    activeButton.innerText = "Error reading file";
                 };
 
                 reader.readAsText(file);
@@ -185,6 +194,7 @@ fileInput.addEventListener(
 
                 message.value =
                     fullText.trim();
+                activeButton.innerText = "Ready!";
             }
 
 
@@ -204,6 +214,7 @@ fileInput.addEventListener(
 
                 message.value =
                     result.value.trim();
+                activeButton.innerText = "Ready!";
             }
 
 
@@ -232,12 +243,13 @@ fileInput.addEventListener(
         } catch (error) {
 
             console.error(
-                "Error reading file:",
+                "Error reading file. Please try again.",
                 error
             );
 
             message.value =
                 "An error occurred while reading the file.";
+            activeButton.innerText = "Error reading file";
         }
     }
 );
@@ -382,20 +394,15 @@ voiceSelect.addEventListener(
     }
 );
 
+
 function play() {
-
     if (!getText()) {
-
         alert(
             "There is no text to read."
         );
-
         return;
     }
-
-    activeButton.innerText =
-        "playing";
-
+    activeButton.innerText = "playing";
     // Stop anything currently playing
     window.speechSynthesis.cancel();
 
@@ -434,10 +441,66 @@ function stopPlay() {
         return;
     }
     window.speechSynthesis.cancel();
-    activeButton.innerText =
-        "stopped";
+    activeButton.innerText = "stopped";
 }
 
+function formatReadingDuration(seconds) {
+
+    const totalSeconds =
+        Math.max(0, Math.round(seconds));
+
+    const minutes =
+        Math.floor(totalSeconds / 60);
+
+    const remainingSeconds =
+        totalSeconds % 60;
+
+    if (minutes > 0) {
+        return `${minutes}m ${remainingSeconds}s`;
+    }
+
+    return `${remainingSeconds}s`;
+}
+
+
+// =========================================================
+// READING START TIME
+// =========================================================
+
+let readingStartTime = null;
+
+
+speech.addEventListener("start", () => {
+
+    readingStartTime =
+        Date.now();
+
+    activeButton.innerText =
+        "Reading...";
+});
+
+
+// =========================================================
+// READING END
+// =========================================================
+
+speech.addEventListener("end", () => {
+
+    if (!readingStartTime) {
+        return;
+    }
+
+    const elapsedSeconds =
+        (Date.now() - readingStartTime) / 1000;
+
+    const durationText =
+        formatReadingDuration(elapsedSeconds);
+
+    activeButton.innerText =
+        `Finished reading in ${durationText}`;
+
+    readingStartTime = null;
+});
 
 // =========================================================
 // DISABLE CONTEXT MENU

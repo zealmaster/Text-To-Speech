@@ -35,9 +35,14 @@
         <span class="browse-file-mobile">Browse file</span>
       </label>
     </div>
-    <select id="voiceSelect">
-      <option value="">Select Voice</option>
-  </select>
+    <div class="settings">
+      <select id="voiceSelect">
+        <option value="">Select Voice</option>
+      </select>
+
+      <label for="speed">Speed</label>
+      <input type="range" id="speed" min="0.5" max="2" step="0.1" value="1">
+    </div>
     <div>
       <form class="mainForm" enctype="multipart/form-data">
         <div class="control-buttons">
