@@ -395,6 +395,48 @@ voiceSelect.addEventListener(
 );
 
 
+const speechErrorMessages = {
+    canceled: "Speech was canceled.",
+    interrupted: "Speech was interrupted.",
+    "audio-busy": "Audio is busy. Close other audio and try again.",
+    "audio-hardware": "Audio hardware is unavailable.",
+    network: "A network error stopped speech.",
+    "synthesis-unavailable": "Speech synthesis is unavailable in this browser.",
+    "synthesis-failed": "Speech synthesis failed.",
+    "language-unavailable": "The selected language is unavailable.",
+    "voice-unavailable": "The selected voice is unavailable.",
+    "text-too-long": "The text is too long to read in one go.",
+    "invalid-argument": "Invalid speech settings.",
+    "not-allowed": "This page is not allowed to play speech."
+};
+
+let playWatchdog = null;
+
+function getWhyNotReading() {
+
+    if (!("speechSynthesis" in window)) {
+        return "Speech synthesis is not supported in this browser.";
+    }
+
+    if (window.speechSynthesis.paused) {
+        return "Speech is paused. Click Resume to continue.";
+    }
+
+    if (!window.speechSynthesis.getVoices().length) {
+        return "No speech voices are available.";
+    }
+
+    if (speech.text.length > 32000) {
+        return "The text is too long for the browser to read at once.";
+    }
+
+    if (window.speechSynthesis.pending && !window.speechSynthesis.speaking) {
+        return "Speech is queued but has not started. Try clicking Play again.";
+    }
+
+    return "Speech did not start. Try clicking Play again.";
+}
+
 function play() {
     if (!getText()) {
         alert(
@@ -402,13 +444,26 @@ function play() {
         );
         return;
     }
-    activeButton.innerText = "playing";
-    // Stop anything currently playing
-    window.speechSynthesis.cancel();
+    activeButton.innerText = "Reading...";
+
+    if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+    }
 
     window.speechSynthesis.speak(
         speech
     );
+
+    clearTimeout(playWatchdog);
+    playWatchdog = setTimeout(() => {
+
+        if (readingStartTime || window.speechSynthesis.speaking) {
+            return;
+        }
+
+        activeButton.innerText =
+            getWhyNotReading();
+    }, 1500);
 }
 
 function resumePlay() {
@@ -419,7 +474,7 @@ function resumePlay() {
         return;
     }
     window.speechSynthesis.resume();
-    activeButton.innerText = "playing";
+    activeButton.innerText = "Reading...";
 }
 
 function pausePlay() {
@@ -430,7 +485,7 @@ function pausePlay() {
         return;
     }
     window.speechSynthesis.pause();
-    activeButton.innerText = "paused";
+    activeButton.innerText = "Speech is paused. Click Resume to continue.";
 }
 
 function stopPlay() {
@@ -471,12 +526,31 @@ let readingStartTime = null;
 
 
 speech.addEventListener("start", () => {
-
+    clearTimeout(playWatchdog);
     readingStartTime =
         Date.now();
 
     activeButton.innerText =
         "Reading...";
+});
+
+speech.addEventListener("error", (event) => {
+    clearTimeout(playWatchdog);
+
+    if (
+        event.error === "canceled" ||
+        event.error === "interrupted"
+    ) {
+        return;
+    }
+
+    const reason =
+        speechErrorMessages[event.error] ||
+        event.error ||
+        "Speech could not start.";
+
+    activeButton.innerText =
+        `Could not read: ${reason}`;
 });
 
 
@@ -508,7 +582,11 @@ speech.addEventListener("end", () => {
 
 document.addEventListener(
     'contextmenu',
-    e => e.preventDefault()
+    e => {
+        if (window.matchMedia('(min-width: 451px)').matches) {
+            e.preventDefault();
+        }
+    }
 );
 
 
